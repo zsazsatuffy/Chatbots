@@ -17,10 +17,9 @@ def output(s):
 
 # Setup and Response function
 def setup():
-    global askedCounter
-    global orderCounter
+    global askedCounter, assignmentOrder
     askedCounter = 0
-    orderCounter = 0
+    assignmentOrder = 0
     output("Hello, my name is Roger.")
     sleep(1)
     output("What's up?")
@@ -31,15 +30,16 @@ def response(input):
     if respondToTrigger(input):
         pass
     else:
-        output(defaultOrderedResponse())
+        output(defaultRandomResponse())
 
 
-def defaultOrderedResponse():
+def defaultRandomResponse():
     answers = [
         "Ok",
         "Roger",
         "Copy that",
         "Confirmative",
+        "Affirmative",
         "Okay",
         "Okeydokey",
         "Yes",
@@ -47,31 +47,55 @@ def defaultOrderedResponse():
         "I agree",
         "Absolutely"
     ]
-    response = answers[orderCounter]
-    orderCounter += 1
-    if orderCounter >= len(answers):
-        orderCounter = 0
+    response = random.choice(answers)
     return response
 
 
-def randomAssignments():
+def orderedAssignmentDetails():
+    global assignmentOrder
+    scheme = "https://"
+    githubRepo = "github.com/ArtezGDA/Course-Material"
+    pageLink = "/blob/master/DesignAChatbot.md"
     answers = [
-        "The assignment is to design a chatbot.",
-        "Design a chatbot",
-        "A Chatbot, You make it!",
-        "Make it work, this chatbot."
+        "Design a chatbot!",
+        "The assignment is to Design a Chatbot.",
+        "A Chatbot. And you have to design its interactions.",
+        """Read more about this
+        <a href="{}{}{}">Design a Chatbot Assignment</a>
+        .""".format(scheme, githubRepo, pageLink),
+        "Make this chatbot more interesting.",
+    ]
+    if assignmentOrder < len(answers):
+        response = answers[assignmentOrder]
+        assignmentOrder += 1
+    else:
+        output("I don't know what else to say.")
+        sleep(1.5)
+        response = "Just go do it!"
+    return response
+
+
+def randomAgainRemarks():
+    answers = [
+        "Why do you ask me this again?",
+        "What? Again?",
+        "Do I have to repeat myself?",
+        "Didn't you just hear me?",
+        "Were you not listening?",
+        "Ok. There we go. One more time",
+        "For the last time,"
     ]
     return random.choice(answers)
 
 
 def respondToTrigger(input):
     global askedCounter
-    triggers = ["assignment", "opdracht", "what do I do"]
+    triggers = ["assignment", "what do I do", "chatbot"]
     for t in triggers:
         if t in input:
-            if askedCounter > 0:
-                output("Why do you ask me this again?")
-            output(randomAssignments())
+            if askedCounter > 1:
+                output(randomAgainRemarks())
+            output(orderedAssignmentDetails())
             askedCounter += 1
             return True
     return False

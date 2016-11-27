@@ -3,7 +3,7 @@
 # Command Line Interface (CLI) version
 
 import time
-import bot as bot
+import rogerbot as bot
 
 
 # Chat Server Framework functions
@@ -14,7 +14,7 @@ def sleep(n):
     """
     time.sleep(n)
 
-    
+
 def output(s):
     """Outputs string s as chat message.
     Send the given string to the chat client.
@@ -33,7 +33,7 @@ def main():
     while True:
         humanSpeak = raw_input("> ")
         bot.response(humanSpeak)
-        
+
 
 if __name__ == '__main__':
     main()

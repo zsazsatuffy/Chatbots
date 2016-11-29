@@ -3,7 +3,7 @@
 # Command Line Interface (CLI) version
 
 import time
-import rogerbot as bot
+import pulpbot as bot
 
 
 # Chat Server Framework functions

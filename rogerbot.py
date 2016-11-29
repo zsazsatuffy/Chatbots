@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-<<<<<<< HEAD
 #Rogerbot
 
 # Default bot template
